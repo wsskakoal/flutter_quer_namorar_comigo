@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 class WelcomeController extends GetxController with StateMixin<Type> {
   RxString textoPrincipal = RxString(" ");
 
-  RxDouble right = RxDouble(0);
+  RxDouble height = RxDouble(0);
   RxDouble top = RxDouble(0);
+  double maxHeight = 0;
+  double maxWidth = 0;
 
   @override
   void onInit() {
@@ -20,13 +22,14 @@ class WelcomeController extends GetxController with StateMixin<Type> {
 
     var rng = Random();
 
-    right.value = rng.nextInt(599).toDouble();
-    top.value = rng.nextInt(599).toDouble();
+    height.value = rng.nextInt(maxWidth.toInt()).toDouble();
+    top.value = rng.nextInt(maxHeight.toInt()).toDouble();
     change(null, status: RxStatus.success());
   }
 
   sim() {
     Get.defaultDialog(
-        title: "Parabéns", middleText: "Você acaba de entrar na minha vida");
+        title: "Parabéns",
+        middleText: "Você acaba de ganhar uma estádia gratis na Wyllian House");
   }
 }

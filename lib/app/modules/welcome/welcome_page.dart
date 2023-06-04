@@ -9,8 +9,11 @@ import 'welcome_controller.dart';
 class WelcomePage extends GetView<WelcomeController> {
   @override
   Widget build(BuildContext context) {
-    controller.right.value = Get.height / 3;
-    controller.top.value = 300;
+    controller.height.value = Get.height / 10;
+    controller.top.value = Get.height / 3;
+    controller.maxHeight = Get.height / 2;
+    controller.maxWidth = Get.width / 2;
+
     return Scaffold(
       // appBar: AppBar(title: Text('WelcomePage')),
       body: controller.obx((state) => page(),
@@ -34,19 +37,19 @@ class WelcomePage extends GetView<WelcomeController> {
             padding: EdgeInsets.all(Get.height / 20),
             child: Center(
               child: Text(
-                "QUER NAMORAR COMIGO ?",
+                "QUER DORMIR COMIGO ?",
                 style: TextStyle(fontSize: Get.height / 30),
               ),
             ),
           ),
         ),
         Positioned(
-          left: Get.height / 3,
-          top: 300,
+          left: Get.height / 10,
+          top: Get.height / 3,
           child: Container(
             height: Get.height / 15,
             color: Colors.green,
-            child: OutlinedButton(
+            child: TextButton(
               child: Text(
                 "SIM",
                 style:
@@ -57,17 +60,18 @@ class WelcomePage extends GetView<WelcomeController> {
           ),
         ),
         Positioned(
-          right: controller.right.value,
+          right: controller.height.value,
           top: controller.top.value,
           child: Container(
             color: Colors.red,
             height: Get.height / 15,
-            child: OutlinedButton(
+            child: TextButton(
               child: Text(
                 "NÃO",
                 style:
                     TextStyle(fontSize: Get.height / 40, color: Colors.white),
               ),
+              onHover: (value) => controller.nao(),
               onPressed: () => {controller.nao()},
             ),
           ),
