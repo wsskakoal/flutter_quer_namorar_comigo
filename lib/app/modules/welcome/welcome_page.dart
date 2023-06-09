@@ -14,17 +14,18 @@ class WelcomePage extends GetView<WelcomeController> {
     controller.top.value = Get.height / 3;
     controller.maxHeight = Get.height / 2;
     controller.maxWidth = Get.width / 2;
+    var desktoppp = MediaQuery.of(context).size.width > 992;
 
     return Scaffold(
       // appBar: AppBar(title: Text('WelcomePage')),
-      body: controller.obx((state) => page(),
+      body: controller.obx((state) => page(desktoppp),
           onEmpty: const EmptyPage(),
           onError: (error) => ErrorPage(error),
           onLoading: const LoadingPage()),
     );
   }
 
-  Widget page() {
+  Widget page(bool desktoppp) {
     return SafeArea(
       child: Stack(alignment: AlignmentDirectional.center, children: [
         const Positioned(
@@ -56,24 +57,35 @@ class WelcomePage extends GetView<WelcomeController> {
                 style:
                     TextStyle(fontSize: Get.height / 40, color: Colors.white),
               ),
-              onPressed: () async  {
-                
-                var phone = "5569984324602";
-                var message = "Oi preto mais lindo e charmoso de Cacoal, é claro que eu aceito. Como eu poderia recusar seu convite ?";
+              onPressed: () async {
+                // var phone = "5569984324602";
+                // var message = "Oi preto mais lindo e charmoso de Cacoal, é claro que eu aceito. Como eu poderia recusar seu convite ?";
 
-                var whatsappUrl =
-                    "whatsapp://send?phone=$phone}" + "&text=${message}";
-                try {
-                  launch(whatsappUrl);
-                } catch (e) {
-                  Get.showSnackbar(GetSnackBar(title: "", message: e.toString(),));
-                  //To handle error and display error message
-                  // Helper.errorSnackBar(
-                  //     context: context, message: "Unable to open whatsapp");
+                // var whatsappUrl =
+                //     "whatsapp://send?phone=$phone}" + "&text=${message}";
+                if (desktoppp) 
+                {
+                  var url = "web.whatsapp.com/send?phone=";
+                  var num = "+5569984324602";
+                  var text = "&text=Oi preto mais lindo e charmoso de Cacoal, é claro que eu aceito. Como eu poderia recusar seu convite ?";
+
+                  var whatsappURl = "${url}+${num}+${text}";
+
+                                      launch(whatsappURl);
+
+
+                } 
+                else 
+                {
+                  var whatsapp = "+5569984324602";
+                  var whatsappURl_android = "whatsapp://send?phone=" +whatsapp +"&text=Oi preto mais lindo e charmoso de Cacoal, é claro que eu aceito. Como eu poderia recusar seu convite ?";
+
+                                      launch(whatsappURl_android);
+
                 }
-                
+
                 return await controller.sim();
-                },
+              },
             ),
           ),
         ),
