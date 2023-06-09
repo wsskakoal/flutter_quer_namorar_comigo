@@ -3,6 +3,7 @@ import 'package:flutter_firebase_login_page/app/modules/common_pages/empty_page.
 import 'package:flutter_firebase_login_page/app/modules/common_pages/error_page.dart';
 import 'package:flutter_firebase_login_page/app/modules/common_pages/loading_page.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'welcome_controller.dart';
 
@@ -37,7 +38,7 @@ class WelcomePage extends GetView<WelcomeController> {
             padding: EdgeInsets.all(Get.height / 20),
             child: Center(
               child: Text(
-                "QUER DORMIR COMIGO ?",
+                "ACEITA SAIR COMIGO HOJE ?",
                 style: TextStyle(fontSize: Get.height / 30),
               ),
             ),
@@ -55,7 +56,24 @@ class WelcomePage extends GetView<WelcomeController> {
                 style:
                     TextStyle(fontSize: Get.height / 40, color: Colors.white),
               ),
-              onPressed: () => {controller.sim()},
+              onPressed: () async  {
+                
+                var phone = "5569984324602";
+                var message = "Oi preto mais lindo e charmoso de Cacoal, é claro que eu aceito. Como eu poderia recusar seu convite ?";
+
+                var whatsappUrl =
+                    "whatsapp://send?phone=$phone}" + "&text=${message}";
+                try {
+                  launch(whatsappUrl);
+                } catch (e) {
+                  Get.showSnackbar(GetSnackBar(title: "", message: e.toString(),));
+                  //To handle error and display error message
+                  // Helper.errorSnackBar(
+                  //     context: context, message: "Unable to open whatsapp");
+                }
+                
+                return await controller.sim();
+                },
             ),
           ),
         ),

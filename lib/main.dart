@@ -9,9 +9,9 @@ void main() {
     debugShowCheckedModeBanner: false,
     initialRoute: Routes.HOME,
     theme: primaryTheme,
-    defaultTransition: Transition.fade,
+    // defaultTransition: Transition.fade,
     // initialBinding: WelcomeBinding(),
     getPages: AppPages.pages,
-    // home: WelcomePage(),
+    // home: MainPage(),
   ));
 }
